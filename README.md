@@ -4,7 +4,7 @@ A curated collection of Claude Code skills for context engineering, agent develo
 
 ```
                     ╭──────────────────────────────────╮
-                    │   13 Skills · 4 Categories       │
+                    │   15 Skills · 5 Categories       │
                     │   Context · Agents · Creative    │
                     ╰──────────────────────────────────╯
 ```
@@ -51,6 +51,7 @@ From ideation to deployment.
 |-------|-------------|
 | [project-development](./project-development/) | Design LLM-powered projects. Task-model fit, pipeline architecture, and agent-assisted development. |
 | [product-validation](./product-validation/) | 产品创意验证流程。竞品分析、差异化评估、商业模式验证。帮助快速做出"做/不做"决定。 |
+| [opportunity-hunter](./opportunity-hunter/) | 商业机会发现。通过热门事件、高下载低评分应用、社交媒体呼声三种方法挖掘产品方向。 |
 
 ### Creative
 
@@ -60,6 +61,14 @@ Transform ideas into beautiful artifacts.
 |-------|-------------|
 | [canvas-design](./canvas-design/) | Create museum-quality visual art in .png and .pdf. Design philosophy creation + canvas expression. |
 | [year-book](./year-book/) | 将年度日志转换为精美的 LaTeX 书籍。主题提炼、章节组织、Overleaf 兼容模板。 |
+
+### Developer Tools
+
+Streamline development workflows.
+
+| Skill | Description |
+|-------|-------------|
+| [git-commit-format](./git-commit-format/) | Git 提交信息格式规范。Emoji+中文类别格式，确保提交信息专业、简洁、一致。 |
 
 ---
 
