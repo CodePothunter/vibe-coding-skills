@@ -4,7 +4,7 @@ A curated collection of Claude Code skills for context engineering, agent develo
 
 ```
                     ╭──────────────────────────────────╮
-                    │   19 Skills · 7 Categories       │
+                    │   20 Skills · 7 Categories       │
                     │   Context · Agents · Creative    │
                     ╰──────────────────────────────────╯
 ```
@@ -52,6 +52,7 @@ From ideation to deployment.
 | [project-development](./project-development/) | Design LLM-powered projects. Task-model fit, pipeline architecture, and agent-assisted development. |
 | [product-validation](./product-validation/) | 产品创意验证流程。竞品分析、差异化评估、商业模式验证。帮助快速做出"做/不做"决定。 |
 | [opportunity-hunter](./opportunity-hunter/) | 商业机会发现。通过热门事件、高下载低评分应用、社交媒体呼声三种方法挖掘产品方向。 |
+| [patent-generator](./patent-generator/) | 智能专利交底书生成。根据发明主题或论文自动生成完整专利交底书，含联网检索、Mermaid 流程图、Pandoc 转 Word。 |
 
 ### Creative
 
