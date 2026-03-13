@@ -4,7 +4,7 @@ A curated collection of Claude Code skills for context engineering, agent develo
 
 ```
                     ╭──────────────────────────────────╮
-                    │   15 Skills · 5 Categories       │
+                    │   19 Skills · 7 Categories       │
                     │   Context · Agents · Creative    │
                     ╰──────────────────────────────────╯
 ```
@@ -62,6 +62,16 @@ Transform ideas into beautiful artifacts.
 | [canvas-design](./canvas-design/) | Create museum-quality visual art in .png and .pdf. Design philosophy creation + canvas expression. |
 | [year-book](./year-book/) | 将年度日志转换为精美的 LaTeX 书籍。主题提炼、章节组织、Overleaf 兼容模板。 |
 
+### Document Manipulation
+
+Programmatic document processing and generation.
+
+| Skill | Description |
+|-------|-------------|
+| [pdf](./pdf/) | PDF manipulation toolkit: extract text/tables, create PDFs, merge/split, handle forms. |
+| [docx](./docx/) | Comprehensive Word document manipulation: create, edit, tracked changes, comments, formatting. |
+| [pptx](./pptx/) | Presentation creation and editing: layouts, slides, speaker notes, HTML-to-PPTX conversion. |
+
 ### Developer Tools
 
 Streamline development workflows.
@@ -69,6 +79,7 @@ Streamline development workflows.
 | Skill | Description |
 |-------|-------------|
 | [git-commit-format](./git-commit-format/) | Git 提交信息格式规范。Emoji+中文类别格式，确保提交信息专业、简洁、一致。 |
+| [skill-creator](./skill-creator/) | Meta-skill for creating new skills. Design specialized tools with knowledge and workflows. |
 
 ---
 
