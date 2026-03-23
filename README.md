@@ -4,8 +4,9 @@ A curated collection of Claude Code skills for context engineering, agent develo
 
 ```
                     ╭──────────────────────────────────╮
-                    │   20 Skills · 7 Categories       │
+                    │   20+ Skills · 8 Categories      │
                     │   Context · Agents · Creative    │
+                    │   + gstack (submodule)            │
                     ╰──────────────────────────────────╯
 ```
 
@@ -81,6 +82,14 @@ Streamline development workflows.
 |-------|-------------|
 | [git-commit-format](./git-commit-format/) | Git 提交信息格式规范。Emoji+中文类别格式，确保提交信息专业、简洁、一致。 |
 | [skill-creator](./skill-creator/) | Meta-skill for creating new skills. Design specialized tools with knowledge and workflows. |
+
+### External Skills (Submodules)
+
+Third-party skill collections integrated as git submodules.
+
+| Skill | Description |
+|-------|-------------|
+| [gstack](./gstack/) | [garrytan/gstack](https://github.com/garrytan/gstack) — Headless browser QA, code review, shipping, design review, and more. Includes `/browse`, `/review`, `/qa`, `/ship`, `/design-review`, `/careful`, `/guard` etc. |
 
 ---
 
