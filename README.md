@@ -110,6 +110,36 @@ skill-name/
 
 These skills are designed for [Claude Code](https://claude.com/claude-code). Add them to your `~/.claude/skills/` directory.
 
+### Clone with submodules
+
+```bash
+git clone --recurse-submodules https://github.com/CodePothunter/vibe-coding-skills.git ~/.claude/skills
+```
+
+If you've already cloned without submodules:
+
+```bash
+cd ~/.claude/skills
+git submodule init && git submodule update
+```
+
+### Setup gstack
+
+gstack requires [Bun](https://bun.sh/) v1.0+ to build its headless browser binary and register skills:
+
+```bash
+cd ~/.claude/skills/gstack && ./setup
+```
+
+This builds the browse binary, installs Playwright Chromium, and symlinks skill directories. For Codex/Gemini/Kiro, use `./setup --host codex` (or `--host kiro`, `--host auto`).
+
+### Update submodules
+
+```bash
+git submodule update --remote
+cd ~/.claude/skills/gstack && ./setup   # rebuild after update
+```
+
 Skills activate based on context. For example:
 - Ask about context limits → `context-fundamentals` activates
 - Design an agent system → `multi-agent-patterns` activates
