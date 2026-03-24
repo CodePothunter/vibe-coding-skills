@@ -82,6 +82,7 @@ Streamline development workflows.
 |-------|-------------|
 | [git-commit-format](./git-commit-format/) | Git 提交信息格式规范。Emoji+中文类别格式，确保提交信息专业、简洁、一致。 |
 | [skill-creator](./skill-creator/) | Meta-skill for creating new skills. Design specialized tools with knowledge and workflows. |
+| [tinysearch-guide](./tinysearch-guide/) | TinySearch 混合检索引擎集成指南。架构决策、组件选型（Vector + BM25 + Reranker + MetadataIndex）和实现模式。 |
 
 ### External Skills (Submodules)
 

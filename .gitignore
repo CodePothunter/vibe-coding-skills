@@ -1,4 +1,5 @@
 canvas-design/output/
+**__pycache__**
 
 # gstack setup generated symlinks
 autoplan
