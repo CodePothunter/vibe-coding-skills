@@ -3,7 +3,7 @@ name: tinysearch-guide
 description: "TinySearch 集成指南。为项目接入 TinySearch 混合检索引擎提供架构决策、组件选型和实现模式。当需要：(1) 在新项目中接入 TinySearch, (2) 设计混合检索管道 (Vector + BM25 + Reranker + MetadataIndex), (3) 实现增量索引更新, (4) 设计 metadata 预筛选, (5) 迁移已有检索逻辑到 TinySearch, (6) 查询 TinySearch API 用法, (7) 实现 Contextual Retrieval 上下文增强检索, (8) 优化 chunking 策略时触发。关键词：TinySearch, 向量检索, FAISS, BM25, hybrid search, embedding, reranker, metadata filter, 增量索引, contextual retrieval, 上下文检索, chunking。"
 ---
 
-# TinySearch 集成指南
+# TinySearch 集成指南 (v0.2.1)
 
 TinySearch 源码：`/home/wxy/projects/TinySearch/`，`pip install -e` 安装。
 
@@ -134,8 +134,11 @@ engine = HybridQueryEngine(
     metadata_index=MetadataIndex(),
     min_scores=[0.35, 5.0],           # per-retriever 最低分
     recall_multiplier=3,              # 检索 top_k * 3 候选，rerank 后取 top_k
-    filter_mode="auto",               # "pre" | "post" | "auto"
+    filter_mode="pre",                # "pre" | "post" | "auto"（推荐 "pre"）
 )
+# filter_mode="pre" 使用 FAISS IDSelectorBatch 原生预过滤（v0.2.1+）
+# 搜索空间限制在 candidate_ids 内，O(candidates) 而非 O(total)
+# BM25 则按 selectivity 比例自动扩大召回量
 
 fc = FlowController(
     data_adapter=None,
@@ -186,11 +189,29 @@ tracker.save("hashes.json")
 # 精确: {"brand": "Sony"}
 # OR:   {"brand": ["Sony", "Bose"]}
 # AND:  {"brand": "Sony", "category": "耳机"}  (多 key 交叉)
+# Callable: {"tags": lambda v: "wireless" in str(v)}  (前缀/子串匹配)
 
 # 层级展开（年级/地区等）
 hierarchy = {"六年级": ["六年级", "六年级上", "六年级下"]}
 filters = {"grade": hierarchy.get(user_grade, [user_grade])}
 ```
+
+**元数据发现 (v0.2.1)** — 枚举字段值及计数：
+
+```python
+mi = engine.metadata_index
+
+# 列举所有出版社及其文档数
+counts = mi.get_value_counts("publisher")
+# → {"人教版": 14258, "外研社": 11904, "新起点": 8695, ...}
+
+# 带范围过滤：人教版五年级上有哪些 quiz_tags
+candidate_ids = mi.lookup({"publisher": "人教版", "grade": "五年级上"})
+quiz_counts = mi.get_value_counts("quiz_tags", candidate_ids)
+# → {"单项选择": 193, "听力专项": 95, "PartA随堂练习（一）": 73, ...}
+```
+
+**典型用途：** 出题小程序的下拉框选项、Agent 浏览数据结构、"有哪些X"类发现查询。
 
 ### 6. CrossEncoderReranker — 内置精排
 
@@ -411,8 +432,11 @@ if engine is None and index_exists():
 5. **Reranker 同步接口** — HybridQueryEngine 要求 sync reranker，异步模型需外部初始化后传入
 6. **Contextual chunk 未区分原文** — 展示给用户时用 `metadata["original_text"]`，不要展示上下文前缀
 7. **chunk_size 过大** — 大 chunk 语义被稀释，BM25 关键词被淹没。长文档建议 ≤ 800 tokens 并叠加 Contextual Retrieval
+8. **metadata 不在文本中** — MetadataIndex 只做精确过滤，BM25/向量搜不到 metadata。关键维度（publisher、grade 等）应同时注入文本（如 `[META]...[/META]` 前缀）和 metadata
 9. **top_k 过小** — top-5 漏检率远高于 top-20。初始召回宁多勿少，靠 reranker 精排
 10. **跳过评估** — 不跑 recall@K 就无法判断 Contextual Retrieval / Reranker 是否真的有效
+11. **cosine 评分方向** — FAISSIndexer(metric="cosine") 返回 inner product（higher=better），WeightedFusion 的 min-max 归一化假设 higher=better。v0.2.1 已修复此问题，旧版本可能存在评分反转
+12. **filter_mode="pre" 高选择性** — v0.2.1 前，pre-filter 用 over-recall+post-filter 策略，高选择性（如 1% 候选集）几乎必然返回 0 结果。v0.2.1+ 使用 FAISS IDSelectorBatch 原生预过滤，已修复
 
 ## API 参考
 
