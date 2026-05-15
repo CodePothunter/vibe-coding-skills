@@ -6,7 +6,7 @@ A curated collection of Claude Code skills for context engineering, agent develo
                     ╭──────────────────────────────────╮
                     │   20+ Skills · 8 Categories      │
                     │   Context · Agents · Creative    │
-                    │   + gstack (submodule)            │
+                    │   + gstack & marketingskills      │
                     ╰──────────────────────────────────╯
 ```
 
@@ -91,6 +91,7 @@ Third-party skill collections integrated as git submodules.
 | Skill | Description |
 |-------|-------------|
 | [gstack](./gstack/) | [garrytan/gstack](https://github.com/garrytan/gstack) — Headless browser QA, code review, shipping, design review, and more. Includes `/browse`, `/review`, `/qa`, `/ship`, `/design-review`, `/careful`, `/guard` etc. |
+| [marketingskills](./marketingskills/) | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) — 40 marketing skills for technical marketers and founders: CRO, copywriting, SEO, paid ads, analytics, lifecycle email, growth engineering. Skills live under `marketingskills/skills/` (see [Setup marketingskills](#setup-marketingskills) below). |
 
 ---
 
@@ -133,6 +134,21 @@ cd ~/.claude/skills/gstack && ./setup
 ```
 
 This builds the browse binary, installs Playwright Chromium, and symlinks skill directories. For Codex/Gemini/Kiro, use `./setup --host codex` (or `--host kiro`, `--host auto`).
+
+### Setup marketingskills
+
+marketingskills nests its skills under `marketingskills/skills/<skill-name>/`, so Claude Code's auto-discovery (which scans `~/.claude/skills/*/SKILL.md`) won't pick them up out of the box. Pick one of:
+
+```bash
+# Option A — symlink each skill to the top level (auto-discovered)
+cd ~/.claude/skills
+for d in marketingskills/skills/*/; do ln -sfn "$d" "$(basename "$d")"; done
+
+# Option B — use the upstream npx installer (writes to .agents/ and symlinks into .claude/)
+npx skills add coreyhaines31/marketingskills
+```
+
+After Option A, add the symlinked names to `.gitignore` so they don't dirty the tree.
 
 ### Update submodules
 

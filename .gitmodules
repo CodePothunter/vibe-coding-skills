@@ -1,3 +1,6 @@
 [submodule "gstack"]
 	path = gstack
 	url = https://github.com/garrytan/gstack.git
+[submodule "marketingskills"]
+	path = marketingskills
+	url = https://github.com/coreyhaines31/marketingskills.git
