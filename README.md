@@ -91,7 +91,7 @@ Third-party skill collections integrated as git submodules.
 | Skill | Description |
 |-------|-------------|
 | [gstack](./gstack/) | [garrytan/gstack](https://github.com/garrytan/gstack) — Headless browser QA, code review, shipping, design review, and more. Includes `/browse`, `/review`, `/qa`, `/ship`, `/design-review`, `/careful`, `/guard` etc. |
-| [marketingskills](./marketingskills/) | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) — 40 marketing skills for technical marketers and founders: CRO, copywriting, SEO, paid ads, analytics, lifecycle email, growth engineering. Skills live under `marketingskills/skills/` (see [Setup marketingskills](#setup-marketingskills) below). |
+| [marketingskills](./marketingskills/) | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) — 40 marketing skills for technical marketers and founders: CRO, copywriting, SEO, paid ads, analytics, lifecycle email, growth engineering. Ships as a Claude Code plugin marketplace — activate with `/plugin install marketing-skills` (see [Setup marketingskills](#setup-marketingskills)). |
 
 ---
 
@@ -137,18 +137,16 @@ This builds the browse binary, installs Playwright Chromium, and symlinks skill 
 
 ### Setup marketingskills
 
-marketingskills nests its skills under `marketingskills/skills/<skill-name>/`, so Claude Code's auto-discovery (which scans `~/.claude/skills/*/SKILL.md`) won't pick them up out of the box. Pick one of:
+marketingskills ships a Claude Code plugin marketplace (`.claude-plugin/marketplace.json`), so it does **not** need symlinks — register the marketplace and install the plugin:
 
-```bash
-# Option A — symlink each skill to the top level (auto-discovered)
-cd ~/.claude/skills
-for d in marketingskills/skills/*/; do ln -sfn "$d" "$(basename "$d")"; done
-
-# Option B — use the upstream npx installer (writes to .agents/ and symlinks into .claude/)
-npx skills add coreyhaines31/marketingskills
+```
+/plugin marketplace add ./marketingskills
+/plugin install marketing-skills
 ```
 
-After Option A, add the symlinked names to `.gitignore` so they don't dirty the tree.
+Claude Code reads `marketingskills/.claude-plugin/plugin.json` which points `"skills": "./skills"` and auto-discovers all 40 skill directories. No filesystem juggling.
+
+For non-plugin agents (Codex/Cursor/Windsurf), reference skills directly from `marketingskills/skills/<skill-name>/SKILL.md`.
 
 ### Update submodules
 
